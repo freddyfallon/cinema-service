@@ -3,7 +3,7 @@ const router = express.Router();
 const cinemaController = require('../Controllers/cinemaController');
 
 router.post('/cinemas', (req, res) => {
-  cinemaController.createCinema(req);
+  cinemaController.createCinema(req, res)
 })
 
 module.exports = router;

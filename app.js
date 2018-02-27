@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 mongoose.connect(process.env.DB_URL);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
-  console.error(`🚫  ${err.message}`);
+  console.error(`Error: ${err.message}`);
 });
 
 app.use('/', routes);
