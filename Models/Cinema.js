@@ -11,7 +11,8 @@ const cinemaSchema = new mongoose.Schema({
   slug: String,
   description: {
     type: String,
-    trim: true
+    trim: true,
+    required: 'Please enter a description'
   },
   capacity: {
     type: Number,
