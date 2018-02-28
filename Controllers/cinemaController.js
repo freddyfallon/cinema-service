@@ -11,7 +11,9 @@ exports.createCinema = async (req, res) => {
   } 
 }
 
-exports.getCinemas = async () => {
-  const cinemas = Cinema.find();
-  console.log(cinemas);
+exports.getCinemas = async (req, res) => {
+  const cinemas = await Cinema.find({}, (err, results) => {
+    return results;
+  });
+  res.send(cinemas);
 }

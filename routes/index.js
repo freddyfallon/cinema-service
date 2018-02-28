@@ -6,4 +6,8 @@ router.post('/cinemas', (req, res) => {
   cinemaController.createCinema(req, res)
 })
 
+router.get('/cinemas', (req, res) => {
+  cinemaController.getCinemas(req, res)
+})
+
 module.exports = router;
