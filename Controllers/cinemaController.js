@@ -17,3 +17,10 @@ exports.getCinemas = async (req, res) => {
   });
   res.send(cinemas);
 }
+
+exports.getCinema = async (req, res) => {
+  const cinema = await Cinema.findById(req.params.id, (err, result) => {
+    return result
+  })
+  res.send(cinema);
+}
