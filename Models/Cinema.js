@@ -20,13 +20,13 @@ const cinemaSchema = new mongoose.Schema({
   }
 });
 
-cinemaSchema.pre('save', function(next) {
+cinemaSchema.pre('save', function (next) {
   if (!this.isModified('name')) {
     next();
-    return
+    return;
   }
   this.slug = slug(this.name);
   next();
-})
+});
 
 module.exports = mongoose.model('Cinema', cinemaSchema);

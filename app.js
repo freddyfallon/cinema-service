@@ -11,12 +11,12 @@ app.use(bodyParser.json());
 mongoose.connect(process.env.DB_URL);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
-  console.error(`Error: ${err.message}`);
+  console.error(`Error: ${err.message}`); // eslint-disable-line
 });
 
 app.use('/', routes);
 
 app.set('port', 7777);
 const server = app.listen(app.get('port'), () => {
-  console.log(`Express running → PORT ${server.address().port}`);
+  console.log(`Express running → PORT ${server.address().port}`); // eslint-disable-line
 });

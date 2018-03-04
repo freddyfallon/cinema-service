@@ -1,0 +1,14 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": "airbnb-base/legacy",
+  "parser": "babel-eslint",
+  "rules": {
+    "no-underscore-dangle": 0,
+    "class-methods-use-this": 0,
+    "func-names": 0
+  }
+}

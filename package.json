@@ -19,6 +19,11 @@
     "slugs": "^0.1.3"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
     "jest": "^22.4.2"
   }
 }
