@@ -1,0 +1,52 @@
+swagger: '2.0'
+info: 
+  title: 'Cinema Service'
+  version: '0.1'
+host: 'localhost:7777'
+schemes:
+  - http
+produces:
+  - application/json
+paths:
+  /cinemas:
+    get:
+      description: Retrieves all existing cinemas
+      operationId: cinemas
+      produces: [ application/json ]
+      responses:
+        200:
+          description: Contains details of all cinemas
+          schema:
+            type: array
+            items: 
+              $ref: '#/definitions/Cinema'
+        400:
+          description: 'Invalid request'
+    post:
+      description: Creates a new cinema
+      operationId: cinemas
+      produces: [ application/json ]
+      responses:
+        201:
+          description: Creates the cinema
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/Cinema'
+        400:
+          description: 'Invalid request'
+              
+definitions:
+  Cinema:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      capacity:
+        type: number
+    required:
+      - name
+      - description
+      - capacity

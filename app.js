@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDoc = YAML.load('./Swagger/swagger.yaml');
 require('./Models/Cinema');
 const routes = require('./routes/index');
 
@@ -13,6 +16,8 @@ mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(`Error: ${err.message}`); // eslint-disable-line
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use('/', routes);
 
