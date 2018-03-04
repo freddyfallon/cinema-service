@@ -14,4 +14,8 @@ router.get('/cinemas/:id', (req, res) => {
   cinemaController.getCinema(req, res)
 })
 
+router.delete('/cinemas/:id', (req, res) => {
+  cinemaController.deleteCinema(req, res)
+})
+
 module.exports = router;
