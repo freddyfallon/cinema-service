@@ -39,4 +39,16 @@ exports.deleteCinema = async (req, res) => {
   }
 };
 
+exports.updateCinema = async (req, res) => {
+  try {
+    const cinema = await Cinema.findById(req.params.id, (err, result) => {
+      return result;
+    });
+    await Cinema.update({ _id: cinema.id }, { $set: req.body }, () => {
+    });
+    res.send(`${cinema.name} updated`);
+  } catch (err) {
+    res.send(`There was an error: ${err.toString()}`);
+  }
 };
+

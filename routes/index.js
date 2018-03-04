@@ -18,4 +18,8 @@ router.delete('/cinemas/:id', (req, res) => {
   cinemaController.deleteCinema(req, res);
 });
 
+router.put('/cinemas/:id', (req, res) => {
+  cinemaController.updateCinema(req, res);
+});
+
 module.exports = router;
