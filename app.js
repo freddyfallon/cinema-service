@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
@@ -9,6 +10,7 @@ const swaggerDoc = YAML.load('./Swagger/swagger.yml');
 require('./Models/Cinema');
 const routes = require('./routes/index');
 
+app.use(helmet());
 app.use(bodyParser.json());
 mongoose.connect(process.env.DB_URL);
 mongoose.Promise = global.Promise;
