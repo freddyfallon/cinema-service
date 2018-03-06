@@ -26,6 +26,22 @@ paths:
       description: Creates a new cinema
       operationId: cinemas
       produces: [ application/json ]
+      parameters:
+      - in: body
+        name: cinema
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Bad cinema
+            description:
+              type: string
+              example: A pretty terrible cinema
+            capacity:
+              type: integer
+              example: 100
       responses:
         201:
           description: Creates the cinema
