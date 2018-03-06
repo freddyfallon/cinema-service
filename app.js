@@ -5,12 +5,11 @@ const app = express();
 const mongoose = require('mongoose');
 const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDoc = YAML.load('./Swagger/swagger.yaml');
+const swaggerDoc = YAML.load('./Swagger/swagger.yml');
 require('./Models/Cinema');
 const routes = require('./routes/index');
 
 app.use(bodyParser.json());
-
 mongoose.connect(process.env.DB_URL);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {

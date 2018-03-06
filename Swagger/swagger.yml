@@ -10,7 +10,7 @@ produces:
 paths:
   /cinemas:
     get:
-      description: Retrieves all existing cinemas
+      summary: Retrieves all existing cinemas
       operationId: cinemas
       produces: [ application/json ]
       responses:
@@ -23,32 +23,31 @@ paths:
         400:
           description: 'Invalid request'
     post:
-      description: Creates a new cinema
-      operationId: cinemas
-      produces: [ application/json ]
+      summary: Creates a new cinema
+      operationId: addCinema
+      consumes: [ application/json ]
       parameters:
-      - in: body
-        name: cinema
-        required: true
-        schema:
-          type: object
-          properties:
-            name:
-              type: string
-              example: Bad cinema
-            description:
-              type: string
-              example: A pretty terrible cinema
-            capacity:
-              type: integer
-              example: 100
+        - name: name
+          in: body
+          description: Name of the cinema
+          schema:
+            type: string
+          example: "Bad cinema"
+        - name: description
+          in: body
+          description: Description of the cinema
+          schema:
+            type: string
+          example: "A pretty terrible cinema"
+        - name: capacity
+          in: body
+          description: Capacity of the cinema
+          schema:
+            type: number
+          example: 100
       responses:
         201:
           description: Creates the cinema
-          schema:
-            type: object
-            items:
-              $ref: '#/definitions/Cinema'
         400:
           description: 'Invalid request'
               
