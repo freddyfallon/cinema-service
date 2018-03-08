@@ -62,6 +62,20 @@ paths:
           description: Retrieves the cinema
         400:
           description: Invalid request
+    delete:
+      summary: Deletes a single existing cinema
+      produces: [ application/json ]
+      parameters:
+      - name: id
+        in: path
+        description: ID of the cinema.
+        required: true
+        type: string
+      responses:
+        200:
+          description: Deletes the cinema
+        400:
+          description: Invalid request
 
 
 
