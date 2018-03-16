@@ -4,9 +4,7 @@ const Cinema = mongoose.model('Cinema');
 module.exports = class cinemaController {
   static async getCinemas(req, res) {
     try {
-      const cinemas = await Cinema.find({}, (err, results) => {
-        return results;
-      });
+      const cinemas = await Cinema.find({});
       res.status(200);
       res.send(cinemas);
     } catch (err) {
@@ -18,9 +16,7 @@ module.exports = class cinemaController {
 
   static async getCinema(req, res) {
     try {
-      const cinema = await Cinema.findById(req.params.id, (err, result) => {
-        return result;
-      });
+      const cinema = await Cinema.findById(req.params.id);
       res.status(200);
       res.send(cinema);
     } catch (err) {
@@ -32,9 +28,7 @@ module.exports = class cinemaController {
 
   static async updateCinema(req, res) {
     try {
-      const cinema = await Cinema.findById(req.params.id, (err, result) => {
-        return result;
-      });
+      const cinema = await Cinema.findById(req.params.id);
       await Cinema.update({ _id: cinema.id }, { $set: req.body }, () => {
       });
       res.status(200);
@@ -61,9 +55,7 @@ module.exports = class cinemaController {
 
   static async deleteCinema(req, res) {
     try {
-      const cinema = await Cinema.findById(req.params.id, (err, result) => {
-        return result;
-      });
+      const cinema = await Cinema.findById(req.params.id);
       await Cinema.remove({ _id: cinema.id }, () => {
       });
       res.status(200);
