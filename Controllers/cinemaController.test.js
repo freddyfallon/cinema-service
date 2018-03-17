@@ -16,17 +16,18 @@ beforeEach(() => {
 
 describe('cinemaController', () => {
   describe('getCinemas', () => {
-    it('calls res.send, res.status, and returns a 200', async () => {
+    test('calls res.send, res.status, and returns a 200', async () => {
       await cinemaController.getCinemas(req, res);
-      expect(Cinema.find.mock.calls[0]).toEqual([{}]);
-      expect(res.status.mock.calls[0]).toEqual([200]);
-      expect(res.send.mock.calls[0][0]).toBe(response);
+      expect(Cinema.find).toBeCalledWith({});
+      expect(res.status).toBeCalledWith(200);
+      expect(res.send).toBeCalledWith(response);
     });
 
-    it('it returns a 500 when there is a failure', async () => {
-      Cinema.find = jest.fn().mockReturnValue(Promise.reject(response));
+    test('returns a 500 when there is a failure', async () => {
+      Cinema.find = jest.fn().mockReturnValue(Promise.reject(Error('words')));
       await cinemaController.getCinemas(req, res);
-      expect(res.status.mock.calls[0]).toEqual([500]);
+      expect(res.status).toBeCalledWith(500);
+      expect(res.send).toBeCalledWith('There was an error: Error: words');
     });
   });
 });
