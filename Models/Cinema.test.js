@@ -1,7 +1,7 @@
 const Cinema = require('./Cinema');
 
 describe('Cinema', () => {
-  it('Should return an error if name is not passed', async () => {
+  test('returns an error if name is not passed', async () => {
     const cinema = new Cinema({ description: 'good', capacity: 1 });
     try {
       const response = await cinema.validate();
@@ -11,7 +11,7 @@ describe('Cinema', () => {
     }
   });
 
-  it('Should return an error if description is not passed', async () => {
+  test('returns an error if description is not passed', async () => {
     const cinema = new Cinema({ name: 'Average place', capacity: 1 });
     try {
       const response = await cinema.validate();
@@ -21,7 +21,7 @@ describe('Cinema', () => {
     }
   });
 
-  it('Should return an error if capacity is not passed', async () => {
+  test('returns an error if capacity is not passed', async () => {
     const cinema = new Cinema({ name: 'Average place', description: 'Average' });
     try {
       const response = await cinema.validate();
@@ -31,7 +31,7 @@ describe('Cinema', () => {
     }
   });
 
-  it('Should validate if passed a name, description, and a capacity', async () => {
+  test('validates if passed a name, description, and a capacity', async () => {
     const cinema = new Cinema({ name: 'Average place', description: 'Average', capacity: 300 });
     try {
       const response = await cinema.validate();
@@ -40,4 +40,8 @@ describe('Cinema', () => {
       expect(err).toBeFalsy();
     }
   });
+});
+
+describe('cinemaSchema.pre', () => {
+  test('');
 });
