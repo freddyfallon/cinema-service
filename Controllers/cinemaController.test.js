@@ -1,5 +1,6 @@
 require('../Models/Cinema');
 const mongoose = require('mongoose');
+const mockingoose = require('mockingoose').default;
 const Cinema = mongoose.model('Cinema');
 const cinemaController = require('./cinemaController');
 
@@ -170,6 +171,40 @@ describe('cinemaController', () => {
       error.name = 'CastError';
       Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
       await cinemaController.deleteCinema(req, res);
+      expect(res.status).toBeCalledWith(400);
+      expect(res.send).toBeCalledWith(`There was an error: ${error}`);
+    });
+  });
+
+  describe('createCinema', () => {
+    const req = { body: { name: 'Average cinema', description: 'Pretty average', capacity: 23 } };
+    const res = { status: jest.fn(), send: jest.fn() };
+
+    beforeEach(() => {
+      res.status.mockClear();
+      res.send.mockClear();
+    });
+
+    test('calls res.send, res.status, and returns a 201', async () => {
+      mockingoose.Cinema.toReturn({}, 'save');
+      await cinemaController.createCinema(req, res);
+      expect(res.status).toBeCalledWith(201);
+      expect(res.send).toBeCalledWith(`${req.body.name} was saved`);
+    });
+
+    test('returns a 500 when there is a non ValidationError error', async () => {
+      const error = new Error('words');
+      mockingoose.Cinema.toReturn(error, 'save');
+      await cinemaController.createCinema(req, res);
+      expect(res.status).toBeCalledWith(500);
+      expect(res.send).toBeCalledWith(`There was an error: ${error}`);
+    });
+
+    test('returns a 400 when there is a ValidationError error', async () => {
+      const error = new Error('words');
+      error.name = 'ValidationError';
+      mockingoose.Cinema.toReturn(error, 'save');
+      await cinemaController.createCinema(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
