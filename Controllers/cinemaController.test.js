@@ -3,19 +3,18 @@ const mongoose = require('mongoose');
 const Cinema = mongoose.model('Cinema');
 const cinemaController = require('./cinemaController');
 
-const response = { id: 1, 'something big': true };
-Cinema.find = jest.fn().mockReturnValue(Promise.resolve(response));
-const req = {};
-const res = { status: jest.fn(), send: jest.fn() };
-
-beforeEach(() => {
-  Cinema.find.mockClear();
-  res.status.mockClear();
-  res.send.mockClear();
-});
-
 describe('cinemaController', () => {
   describe('getCinemas', () => {
+    const req = {};
+    const res = { status: jest.fn(), send: jest.fn() };
+
+    beforeEach(() => {
+      res.status.mockClear();
+      res.send.mockClear();
+    });
+
+    const response = [{ id: 1, 'something big': true }];
+    Cinema.find = jest.fn().mockReturnValue(Promise.resolve(response));
     test('calls res.send, res.status, and returns a 200', async () => {
       await cinemaController.getCinemas(req, res);
       expect(Cinema.find).toBeCalledWith({});
