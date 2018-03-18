@@ -41,7 +41,3 @@ describe('Cinema', () => {
     }
   });
 });
-
-describe('cinemaSchema.pre', () => {
-  test('');
-});
