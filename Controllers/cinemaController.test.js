@@ -29,4 +29,32 @@ describe('cinemaController', () => {
       expect(res.send).toBeCalledWith('There was an error: Error: words');
     });
   });
+
+  describe('getCinema', () => {
+    const req = { params: { id: 'test ID' } };
+    const res = { status: jest.fn(), send: jest.fn() };
+
+    beforeEach(() => {
+      res.status.mockClear();
+      res.send.mockClear();
+    });
+
+    test('calls res.send, res.status, and returns a 200', async () => {
+      const response = { id: 1, 'something big': true };
+      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
+
+      await cinemaController.getCinema(req, res);
+      expect(Cinema.findById).toBeCalledWith('test ID');
+      expect(res.status).toBeCalledWith(200);
+      expect(res.send).toBeCalledWith(response);
+    });
+
+    test('returns a 500 when there is a failure', async () => {
+      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(Error('words')));
+      await cinemaController.getCinema(req, res);
+      expect(res.status).toBeCalledWith(500);
+      expect(res.send).toBeCalledWith('There was an error: Error: words');
+    });
+  });
+
 });
