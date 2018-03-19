@@ -1,10 +1,14 @@
-require('../Models/Cinema');
-const mongoose = require('mongoose');
-const mockingoose = require('mockingoose').default;
-const Cinema = mongoose.model('Cinema');
 const cinemaController = require('./cinemaController');
 
 describe('cinemaController', () => {
+  const db = {
+    getAll: jest.fn().mockReturnValue(Promise.resolve([{ id: 1, 'something big': true }])),
+    find: jest.fn().mockReturnValue(Promise.resolve({ id: 1, 'something big': true })),
+    update: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' })),
+    delete: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' })),
+    create: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' }))
+  };
+
   describe('getCinemas', () => {
     const req = {};
     const res = { status: jest.fn(), send: jest.fn() };
@@ -15,27 +19,30 @@ describe('cinemaController', () => {
     });
 
     const response = [{ id: 1, 'something big': true }];
-    Cinema.find = jest.fn().mockReturnValue(Promise.resolve(response));
-    test('calls res.send, res.status, and returns a 200', async () => {
-      await cinemaController.getCinemas(req, res);
-      expect(Cinema.find).toBeCalledWith({});
+    it('calls res.send, res.status, and returns a 200', async () => {
+      await cinemaController.getCinemas(db)(req, res);
+      expect(db.getAll).toBeCalledWith('Cinema');
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith(response);
     });
 
-    test('returns a 500 when there is a non CastError error', async () => {
+    it('returns a 500 when there is a non CastError error', async () => {
       const error = new Error('words');
-      Cinema.find = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.getCinemas(req, res);
+      const errorDb = {
+        getAll: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.getCinemas(errorDb)(req, res);
       expect(res.status).toBeCalledWith(500);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
 
-    test('returns a 400 when there is a CastError error', async () => {
+    it('returns a 400 when there is a CastError error', async () => {
       const error = new Error('words');
       error.name = 'CastError';
-      Cinema.find = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.getCinemas(req, res);
+      const errorDb = {
+        getAll: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.getCinemas(errorDb)(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
@@ -50,29 +57,31 @@ describe('cinemaController', () => {
       res.send.mockClear();
     });
 
-    test('calls res.send, res.status, and returns a 200', async () => {
+    it('calls res.send, res.status, and returns a 200', async () => {
       const response = { id: 1, 'something big': true };
-      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
-
-      await cinemaController.getCinema(req, res);
-      expect(Cinema.findById).toBeCalledWith('test ID');
+      await cinemaController.getCinema(db)(req, res);
+      expect(db.find).toBeCalledWith('Cinema', 'test ID');
       expect(res.status).toBeCalledWith(200);
       expect(res.send).toBeCalledWith(response);
     });
 
-    test('returns a 500 when there is a non CastError error', async () => {
+    it('returns a 500 when there is a non CastError error', async () => {
       const error = new Error('words');
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.getCinema(req, res);
+      const errorDb = {
+        find: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.getCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(500);
       expect(res.send).toBeCalledWith('There was an error: Error: words');
     });
 
-    test('returns a 400 when there is a CastError error', async () => {
+    it('returns a 400 when there is a CastError error', async () => {
       const error = new Error('words');
       error.name = 'CastError';
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.getCinema(req, res);
+      const errorDb = {
+        find: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.getCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
@@ -88,51 +97,30 @@ describe('cinemaController', () => {
     });
 
 
-    test('calls res.send, res.status, and returns a 200', async () => {
-      const response = { _id: 1, name: 'Chill cinema', description: 'A nice place' };
-      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
-      Cinema.update = jest.fn();
-
-      await cinemaController.updateCinema(req, res);
-      expect(Cinema.findById).toBeCalledWith('test ID');
+    it('calls res.send, res.status, and returns a 200', async () => {
+      await cinemaController.updateCinema(db)(req, res);
+      expect(db.update).toBeCalledWith('Cinema', 'test ID', 'test body');
       expect(res.status).toBeCalledWith(200);
-      expect(res.send).toBeCalledWith(`${response.name} updated`);
+      expect(res.send).toBeCalledWith('Chill cinema updated');
     });
 
-    test('returns a 500 when cinema lookup fails with non CastError', async () => {
+    it('returns a 500 when cinema lookup fails with non CastError', async () => {
       const error = new Error('words');
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(Error('words')));
-      await cinemaController.updateCinema(req, res);
+      const errorDb = {
+        update: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.updateCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(500);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
 
-    test('returns a 400 when cinema lookup fails with CastError', async () => {
+    it('returns a 400 when cinema lookup fails with CastError', async () => {
       const error = new Error('words');
       error.name = 'CastError';
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.updateCinema(req, res);
-      expect(res.status).toBeCalledWith(400);
-      expect(res.send).toBeCalledWith(`There was an error: ${error}`);
-    });
-
-    test('returns a 500 when cinema update fails with non CastError', async () => {
-      const error = new Error('words');
-      const response = { _id: 1, name: 'Chill cinema', description: 'A nice place' };
-      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
-      Cinema.update = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.updateCinema(req, res);
-      expect(res.status).toBeCalledWith(500);
-      expect(res.send).toBeCalledWith(`There was an error: ${error}`);
-    });
-
-    test('returns a 400 when cinema update fails with CastError', async () => {
-      const error = new Error('words');
-      error.name = 'CastError';
-      const response = { _id: 1, name: 'Chill cinema', description: 'A nice place' };
-      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
-      Cinema.update = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.updateCinema(req, res);
+      const errorDb = {
+        update: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.updateCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
@@ -147,37 +135,37 @@ describe('cinemaController', () => {
       res.send.mockClear();
     });
 
-    test('calls res.send, res.status, and returns a 200', async () => {
-      const response = { _id: 1, name: 'Chill cinema', description: 'A nice place' };
-      Cinema.findById = jest.fn().mockReturnValue(Promise.resolve(response));
-      Cinema.remove = jest.fn();
-
-      await cinemaController.deleteCinema(req, res);
-      expect(Cinema.findById).toBeCalledWith('test ID');
+    it('calls res.send, res.status, and returns a 200', async () => {
+      await cinemaController.deleteCinema(db)(req, res);
+      expect(db.delete).toBeCalledWith('Cinema', 'test ID');
       expect(res.status).toBeCalledWith(200);
-      expect(res.send).toBeCalledWith(`${response.name} was deleted`);
+      expect(res.send).toBeCalledWith('Chill cinema was deleted');
     });
 
-    test('returns a 500 when cinema lookup fails with non CastError', async () => {
+    it('returns a 500 when cinema lookup fails with non CastError', async () => {
       const error = new Error('words');
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.deleteCinema(req, res);
+      const errorDb = {
+        delete: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.deleteCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(500);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
 
-    test('returns a 400 when cinema lookup fails with CastError', async () => {
+    it('returns a 400 when cinema lookup fails with CastError', async () => {
       const error = new Error('words');
       error.name = 'CastError';
-      Cinema.findById = jest.fn().mockReturnValue(Promise.reject(error));
-      await cinemaController.deleteCinema(req, res);
+      const errorDb = {
+        delete: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.deleteCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
   });
 
   describe('createCinema', () => {
-    const req = { body: { name: 'Average cinema', description: 'Pretty average', capacity: 23 } };
+    const req = { params: { id: 1 } };
     const res = { status: jest.fn(), send: jest.fn() };
 
     beforeEach(() => {
@@ -185,26 +173,29 @@ describe('cinemaController', () => {
       res.send.mockClear();
     });
 
-    test('calls res.send, res.status, and returns a 201', async () => {
-      mockingoose.Cinema.toReturn({}, 'save');
-      await cinemaController.createCinema(req, res);
+    it('calls res.send, res.status, and returns a 201', async () => {
+      await cinemaController.createCinema(db)(req, res);
       expect(res.status).toBeCalledWith(201);
-      expect(res.send).toBeCalledWith(`${req.body.name} was saved`);
+      expect(res.send).toBeCalledWith('Chill cinema was saved');
     });
 
-    test('returns a 500 when there is a non ValidationError error', async () => {
+    it('returns a 500 when there is a non ValidationError error', async () => {
       const error = new Error('words');
-      mockingoose.Cinema.toReturn(error, 'save');
-      await cinemaController.createCinema(req, res);
+      const errorDb = {
+        create: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.createCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(500);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
 
-    test('returns a 400 when there is a ValidationError error', async () => {
+    it('returns a 400 when there is a ValidationError error', async () => {
       const error = new Error('words');
       error.name = 'ValidationError';
-      mockingoose.Cinema.toReturn(error, 'save');
-      await cinemaController.createCinema(req, res);
+      const errorDb = {
+        create: jest.fn().mockReturnValue(Promise.reject(error))
+      };
+      await cinemaController.createCinema(errorDb)(req, res);
       expect(res.status).toBeCalledWith(400);
       expect(res.send).toBeCalledWith(`There was an error: ${error}`);
     });
