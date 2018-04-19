@@ -1,4 +1,8 @@
-const getCinemas = (db: any) => async (req: any, res: any) => {
+import express from 'express';
+import { Database } from '../interfaces/Database';
+
+
+const getCinemas = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinemas = await db.getAll('Cinema');
     res.status(200);
@@ -10,7 +14,7 @@ const getCinemas = (db: any) => async (req: any, res: any) => {
   }
 };
 
-const getCinema = (db: any) => async (req: any, res: any) => {
+const getCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinema = await db.find('Cinema', req.params.id);
     res.status(200);
@@ -22,7 +26,7 @@ const getCinema = (db: any) => async (req: any, res: any) => {
   }
 };
 
-const updateCinema = (db: any) => async (req: any, res: any) => {
+const updateCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinema = await db.update('Cinema', req.params.id, req.body);
     res.status(200);
@@ -34,7 +38,7 @@ const updateCinema = (db: any) => async (req: any, res: any) => {
   }
 };
 
-const createCinema = (db: any) => async (req: any, res: any) => {
+const createCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinema = await db.create('Cinema', req.body);
     res.status(201);
@@ -46,7 +50,7 @@ const createCinema = (db: any) => async (req: any, res: any) => {
   }
 };
 
-const deleteCinema = (db: any) => async (req: any, res: any) => {
+const deleteCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinema = await db.delete('Cinema', req.params.id);
     res.status(200);

@@ -1,38 +1,34 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import express from 'express';
 
 const Database = {
-  getAll: async (model: any) => {
+  getAll: async (model: string) => {
     const Model = mongoose.model(model);
     return Model.find({});
   },
 
-  create: async (model: any, data: any) => {
+  create: async (model: string, data: express.Request) => {
     const Model = mongoose.model(model);
     const createdModel = new Model(data);
     await createdModel.save();
     return createdModel;
   },
 
-  find: async (model: any, id: any) => {
+  find: async (model: string, id: string) => {
     const Model = mongoose.model(model);
-    const foundItem = await Model.findById(id);
-    return foundItem;
+    return await Model.findById(id);
   },
 
-  update: async (model: any, id: any, body: any) => {
+  update: async (model: string, id: string, body: any) => {
     const Model = mongoose.model(model);
-    const foundItem = await Model.findById(id);
-    await Model.update({ _id: foundItem.id }, { $set: body }, () => {
+    return await Model.update({ _id: await Model.findById(id) }, { $set: body }, () => {
     });
-    return foundItem;
   },
 
-  delete: async (model: any, id: any) => {
+  delete: async (model: string, id: string) => {
     const Model = mongoose.model(model);
-    const foundItem = await Model.findById(id);
-    await Model.remove({ _id: foundItem.id }, () => {
+    return await Model.remove({ _id: await Model.findById(id) }, () => {
     });
-    return foundItem;
   }
 };
 
