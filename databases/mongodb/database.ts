@@ -1,25 +1,25 @@
 const mongoose = require('mongoose');
 
 const Database = {
-  getAll: async (model) => {
+  getAll: async (model: any) => {
     const Model = mongoose.model(model);
     return Model.find({});
   },
 
-  create: async (model, data) => {
+  create: async (model: any, data: any) => {
     const Model = mongoose.model(model);
     const createdModel = new Model(data);
     await createdModel.save();
     return createdModel;
   },
 
-  find: async (model, id) => {
+  find: async (model: any, id: any) => {
     const Model = mongoose.model(model);
     const foundItem = await Model.findById(id);
     return foundItem;
   },
 
-  update: async (model, id, body) => {
+  update: async (model: any, id: any, body: any) => {
     const Model = mongoose.model(model);
     const foundItem = await Model.findById(id);
     await Model.update({ _id: foundItem.id }, { $set: body }, () => {
@@ -27,7 +27,7 @@ const Database = {
     return foundItem;
   },
 
-  delete: async (model, id) => {
+  delete: async (model: any, id: any) => {
     const Model = mongoose.model(model);
     const foundItem = await Model.findById(id);
     await Model.remove({ _id: foundItem.id }, () => {

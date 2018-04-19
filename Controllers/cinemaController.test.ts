@@ -1,3 +1,4 @@
+import {} from '@types/jest';
 const cinemaController = require('./cinemaController');
 
 describe('cinemaController', () => {

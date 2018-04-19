@@ -1,4 +1,4 @@
-const getCinemas = (db) => async (req, res) => {
+const getCinemas = (db: any) => async (req: any, res: any) => {
   try {
     const cinemas = await db.getAll('Cinema');
     res.status(200);
@@ -10,7 +10,7 @@ const getCinemas = (db) => async (req, res) => {
   }
 };
 
-const getCinema = (db) => async (req, res) => {
+const getCinema = (db: any) => async (req: any, res: any) => {
   try {
     const cinema = await db.find('Cinema', req.params.id);
     res.status(200);
@@ -22,7 +22,7 @@ const getCinema = (db) => async (req, res) => {
   }
 };
 
-const updateCinema = (db) => async (req, res) => {
+const updateCinema = (db: any) => async (req: any, res: any) => {
   try {
     const cinema = await db.update('Cinema', req.params.id, req.body);
     res.status(200);
@@ -34,7 +34,7 @@ const updateCinema = (db) => async (req, res) => {
   }
 };
 
-const createCinema = (db) => async (req, res) => {
+const createCinema = (db: any) => async (req: any, res: any) => {
   try {
     const cinema = await db.create('Cinema', req.body);
     res.status(201);
@@ -46,7 +46,7 @@ const createCinema = (db) => async (req, res) => {
   }
 };
 
-const deleteCinema = db => async (req, res) => {
+const deleteCinema = (db: any) => async (req: any, res: any) => {
   try {
     const cinema = await db.delete('Cinema', req.params.id);
     res.status(200);
