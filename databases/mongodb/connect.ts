@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
 import './Models/Cinema';
 
+const mongoUrl: any = process.env.DB_URL;
+
 const connect = () => {
-  mongoose.connect('mongodb://mongodb:27017/cinema-service');
+  mongoose.connect(mongoUrl);
   mongoose.connection.on('error', (err: Error) => {
     console.error(`Error: ${err.message}`); // eslint-disable-line
   });
