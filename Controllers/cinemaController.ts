@@ -1,5 +1,5 @@
 import express from 'express';
-import { Database } from '../interfaces/Database';
+import Database from '../interfaces/Database';
 
 
 const getCinemas = (db: Database) => async (req: express.Request, res: express.Response) => {

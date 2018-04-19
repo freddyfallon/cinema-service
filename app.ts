@@ -2,20 +2,32 @@ require('dotenv').config();
 import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
+import YAML from 'yamljs';
+import swaggerTools from 'swagger-tools';
 import routes from './routes/index';
 import connect from './databases/mongodb/connect';
 
+const swaggerDoc = YAML.load('./Swagger/swagger.yml');
 const app = express();
 
-app.use(helmet());
-app.use(bodyParser.json());
+swaggerTools.initializeMiddleware(swaggerDoc, (middleware) => {
 
-connect();
+  app.use(middleware.swaggerMetadata());
 
+  app.use(middleware.swaggerValidator());
 
-app.use('/', routes);
+  app.use(middleware.swaggerUi());
 
-app.set('port', 7777);
-const server = app.listen(app.get('port'), () => {
-  console.log(`Cinema service running → PORT ${server.address().port}`); // eslint-disable-line
+  app.use(helmet());
+  app.use(bodyParser.json());
+  
+  connect();
+  
+  app.use('/', routes);
+  
+  app.set('port', 7777);
+  
+  const server = app.listen(app.get('port'), () => {
+    console.log(`Cinema service running → PORT ${server.address().port}`); // eslint-disable-line
+  });
 });
