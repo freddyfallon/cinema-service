@@ -1,7 +1,6 @@
 import express from 'express';
 import Database from '../interfaces/Database';
 
-
 const getCinemas = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
     const cinemas = await db.getAll('Cinema');
