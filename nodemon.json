@@ -1,1 +1,1 @@
-{ "watch": ["src/**/*.ts"], "ignore": ["src/**/*.spec.ts"], "exec": "ts-babel-node ./index.ts" }
+{ "watch": ["**/*.ts"], "ignore": ["**/*.test.ts"], "exec": "ts-node ./app.ts" }
