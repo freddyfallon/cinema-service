@@ -1,5 +1,6 @@
-const express = require('express');
-const router = express.Router();
+import express from 'express';
+const router = express();
+
 const {
   getCinemas, createCinema, getCinema, updateCinema, deleteCinema
 } = require('../Controllers/cinemaController');
@@ -26,4 +27,4 @@ router.put('/cinemas/:id', (req, res) => {
   updateCinema(database)(req, res);
 });
 
-module.exports = router;
+export default router;

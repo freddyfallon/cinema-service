@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+import mongoose from 'mongoose';
 
 const cinemaSchema = new mongoose.Schema({
   name: {

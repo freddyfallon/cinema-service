@@ -26,4 +26,4 @@ const connect = async () => {
 };
 
 
-module.exports = connect;
+export default connect;
