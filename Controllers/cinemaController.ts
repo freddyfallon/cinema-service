@@ -1,9 +1,10 @@
 import express from 'express';
 import Database from '../interfaces/Database';
+import Models from '../enums/Models';
 
 const getCinemas = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
-    const cinemas = await db.getAll('Cinema');
+    const cinemas = await db.getAll(Models.Cinema);
     res.status(200);
     res.send(cinemas);
   } catch (err) {
@@ -15,7 +16,7 @@ const getCinemas = (db: Database) => async (req: express.Request, res: express.R
 
 const getCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
-    const cinema = await db.find('Cinema', req.params.id);
+    const cinema = await db.find(Models.Cinema, req.params.id);
     res.status(200);
     res.send(cinema);
   } catch (err) {
@@ -27,7 +28,7 @@ const getCinema = (db: Database) => async (req: express.Request, res: express.Re
 
 const updateCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
-    const cinema = await db.update('Cinema', req.params.id, req.body);
+    const cinema = await db.update(Models.Cinema, req.params.id, req.body);
     res.status(200);
     res.send(`${cinema.name} updated`);
   } catch (err) {
@@ -39,7 +40,7 @@ const updateCinema = (db: Database) => async (req: express.Request, res: express
 
 const createCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
-    const cinema = await db.create('Cinema', req.body);
+    const cinema = await db.create(Models.Cinema, req.body);
     res.status(201);
     res.send(`${cinema.name} was saved`);
   } catch (err) {
@@ -51,7 +52,7 @@ const createCinema = (db: Database) => async (req: express.Request, res: express
 
 const deleteCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
   try {
-    const cinema = await db.delete('Cinema', req.params.id);
+    const cinema = await db.delete(Models.Cinema, req.params.id);
     res.status(200);
     res.send(`${cinema.name} was deleted`);
   } catch (err) {
