@@ -13,6 +13,6 @@ services:
     ports:
       - "7777:7777"
   mongodb:
-    image: mongo
+    image: mvertes/alpine-mongo
     ports:
       ["21017:27017"]
