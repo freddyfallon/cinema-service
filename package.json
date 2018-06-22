@@ -31,7 +31,7 @@
     "sequelize": "^4.37.6",
     "sequelize-cli": "^4.0.0",
     "swagger-tools": "^0.10.3",
-    "ts-node": "^6.0.0",
+    "ts-node": "^7.0.0",
     "typescript": "^2.8.1",
     "yamljs": "^0.3.0"
   },
