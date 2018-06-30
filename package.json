@@ -51,7 +51,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "jest": "^22.4.2",
     "nodemon": "^1.17.2",
-    "ts-jest": "^22.4.4"
+    "ts-jest": "^23.0.0"
   },
   "babel": {
     "presets": [
