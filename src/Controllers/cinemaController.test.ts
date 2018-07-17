@@ -1,13 +1,40 @@
-import {} from '@types/jest';
 const cinemaController = require('./cinemaController');
 
 describe('cinemaController', () => {
   const db = {
-    getAll: jest.fn().mockReturnValue(Promise.resolve([{ id: 1, 'something big': true }])),
-    find: jest.fn().mockReturnValue(Promise.resolve({ id: 1, 'something big': true })),
-    update: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' })),
-    delete: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' })),
-    create: jest.fn().mockReturnValue(Promise.resolve({ _id: 1, name: 'Chill cinema', description: 'A nice place' }))
+    getAll: jest
+      .fn()
+      .mockReturnValue(Promise.resolve([{ id: 1, 'something big': true }])),
+    find: jest
+      .fn()
+      .mockReturnValue(Promise.resolve({ id: 1, 'something big': true })),
+    update: jest
+      .fn()
+      .mockReturnValue(
+        Promise.resolve({
+          _id: 1,
+          name: 'Chill cinema',
+          description: 'A nice place'
+        })
+      ),
+    delete: jest
+      .fn()
+      .mockReturnValue(
+        Promise.resolve({
+          _id: 1,
+          name: 'Chill cinema',
+          description: 'A nice place'
+        })
+      ),
+    create: jest
+      .fn()
+      .mockReturnValue(
+        Promise.resolve({
+          _id: 1,
+          name: 'Chill cinema',
+          description: 'A nice place'
+        })
+      )
   };
 
   describe('getCinemas', () => {
@@ -96,7 +123,6 @@ describe('cinemaController', () => {
       res.status.mockClear();
       res.send.mockClear();
     });
-
 
     it('calls res.send, res.status, and returns a 200', async () => {
       await cinemaController.updateCinema(db)(req, res);
