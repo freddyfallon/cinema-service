@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import express from 'express';
 
-const Database = {
+export default {
   getAll: async (model: string) => {
     const Model = mongoose.model(model);
     return Model.find({});
@@ -31,6 +31,4 @@ const Database = {
     });
   }
 };
-
-module.exports = Database;
 
