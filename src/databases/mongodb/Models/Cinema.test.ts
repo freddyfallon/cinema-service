@@ -1,4 +1,4 @@
-const Cinema = require('./Cinema');
+import Cinema from './Cinema';
 
 describe('Cinema', () => {
   test('returns an error if name is not passed', async () => {
@@ -17,12 +17,17 @@ describe('Cinema', () => {
       const response = await cinema.validate();
       expect(response).not.toEqual(undefined);
     } catch (err) {
-      expect(err.errors.description.message).toEqual('Please enter a description');
+      expect(err.errors.description.message).toEqual(
+        'Please enter a description'
+      );
     }
   });
 
   test('returns an error if capacity is not passed', async () => {
-    const cinema = new Cinema({ name: 'Average place', description: 'Average' });
+    const cinema = new Cinema({
+      name: 'Average place',
+      description: 'Average'
+    });
     try {
       const response = await cinema.validate();
       expect(response).not.toEqual(undefined);
@@ -32,7 +37,11 @@ describe('Cinema', () => {
   });
 
   test('validates if passed a name, description, and a capacity', async () => {
-    const cinema = new Cinema({ name: 'Average place', description: 'Average', capacity: 300 });
+    const cinema = new Cinema({
+      name: 'Average place',
+      description: 'Average',
+      capacity: 300
+    });
     try {
       const response = await cinema.validate();
       expect(response).toEqual(undefined);

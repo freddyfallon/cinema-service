@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
 import express from 'express';
 
-const Database = {
+const database = {
   getAll: async (model: string) => {
+    console.log('getAll GOT HERE');
     const Model = mongoose.model(model);
     return Model.find({});
   },
@@ -21,16 +22,17 @@ const Database = {
 
   update: async (model: string, id: string, body: any) => {
     const Model = mongoose.model(model);
-    return await Model.update({ _id: await Model.findById(id) }, { $set: body }, () => {
-    });
+    return await Model.update(
+      { _id: await Model.findById(id) },
+      { $set: body },
+      () => {}
+    );
   },
 
   delete: async (model: string, id: string) => {
     const Model = mongoose.model(model);
-    return await Model.remove({ _id: await Model.findById(id) }, () => {
-    });
+    return await Model.remove({ _id: await Model.findById(id) }, () => {});
   }
 };
 
-module.exports = Database;
-
+module.exports = database;
