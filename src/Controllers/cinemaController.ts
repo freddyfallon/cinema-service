@@ -2,7 +2,10 @@ import express from 'express';
 import Database from '../interfaces/Database';
 import Models from '../enums/Models';
 
-const getCinemas = (db: Database) => async (req: express.Request, res: express.Response) => {
+const getCinemas = (db: Database) => async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const cinemas = await db.getAll(Models.Cinema);
     res.status(200);
@@ -14,7 +17,10 @@ const getCinemas = (db: Database) => async (req: express.Request, res: express.R
   }
 };
 
-const getCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
+const getCinema = (db: Database) => async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const cinema = await db.find(Models.Cinema, req.params.id);
     res.status(200);
@@ -26,7 +32,10 @@ const getCinema = (db: Database) => async (req: express.Request, res: express.Re
   }
 };
 
-const updateCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
+const updateCinema = (db: Database) => async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const cinema = await db.update(Models.Cinema, req.params.id, req.body);
     res.status(200);
@@ -38,7 +47,10 @@ const updateCinema = (db: Database) => async (req: express.Request, res: express
   }
 };
 
-const createCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
+const createCinema = (db: Database) => async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const cinema = await db.create(Models.Cinema, req.body);
     res.status(201);
@@ -50,7 +62,10 @@ const createCinema = (db: Database) => async (req: express.Request, res: express
   }
 };
 
-const deleteCinema = (db: Database) => async (req: express.Request, res: express.Response) => {
+const deleteCinema = (db: Database) => async (
+  req: express.Request,
+  res: express.Response
+) => {
   try {
     const cinema = await db.delete(Models.Cinema, req.params.id);
     res.status(200);
@@ -63,5 +78,9 @@ const deleteCinema = (db: Database) => async (req: express.Request, res: express
 };
 
 module.exports = {
-  getCinemas, createCinema, getCinema, updateCinema, deleteCinema
+  getCinemas,
+  createCinema,
+  getCinema,
+  updateCinema,
+  deleteCinema
 };

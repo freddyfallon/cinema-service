@@ -2,7 +2,11 @@ import express from 'express';
 const router = express();
 
 const {
-  getCinemas, createCinema, getCinema, updateCinema, deleteCinema
+  getCinemas,
+  createCinema,
+  getCinema,
+  updateCinema,
+  deleteCinema
 } = require('../Controllers/cinemaController');
 const database = require('../databases/mongodb/database');
 
