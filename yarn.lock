@@ -90,9 +90,9 @@
   dependencies:
     "@types/node" "*"
 
-"@types/dotenv@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-4.0.3.tgz#ebcfc40da7bc0728b705945b7db48485ec5b4b67"
+"@types/dotenv@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@types/dotenv/-/dotenv-6.1.0.tgz#fba2bfd1f28a46eadaa049f3313ebb89bdedfc53"
   dependencies:
     "@types/node" "*"
 
@@ -2321,9 +2321,9 @@ fs-extra@4.0.3:
     jsonfile "^4.0.0"
     universalify "^0.1.0"
 
-fs-extra@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-5.0.0.tgz#414d0110cdd06705734d055652c5411260c31abd"
+fs-extra@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-7.0.0.tgz#8cc3f47ce07ef7b3593a11b9fb245f7e34c041d6"
   dependencies:
     graceful-fs "^4.1.2"
     jsonfile "^4.0.0"
@@ -5126,13 +5126,13 @@ send@0.16.2:
     range-parser "~1.2.0"
     statuses "~1.4.0"
 
-sequelize-cli@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-4.0.0.tgz#4d641dfb58b0370ab440f737e1b0bf737f15eca5"
+sequelize-cli@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/sequelize-cli/-/sequelize-cli-5.0.0.tgz#bbc0269eccd9f9032c635af1621c50ce82489d67"
   dependencies:
     bluebird "^3.5.1"
     cli-color "^1.2.0"
-    fs-extra "^5.0.0"
+    fs-extra "^7.0.0"
     js-beautify "^1.7.4"
     lodash "^4.17.5"
     resolve "^1.5.0"
