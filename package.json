@@ -12,6 +12,8 @@
   "author": "Freddy Fallon",
   "license": "ISC",
   "jest": {
+    "testEnvironment": "node",
+    "testURL": "http://localhost/",
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
@@ -49,9 +51,9 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "jest": "^22.4.2",
+    "jest": "^24.8.0",
     "nodemon": "^1.17.2",
-    "ts-jest": "^23.0.0"
+    "ts-jest": "^24.0.2"
   },
   "babel": {
     "presets": [
