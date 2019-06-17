@@ -46,7 +46,7 @@
     "@types/mongoose": "^5.0.10",
     "@types/swagger-tools": "^0.10.6",
     "@types/yamljs": "^0.2.30",
-    "babel-eslint": "^9.0.0",
+    "babel-eslint": "^10.0.2",
     "eslint": "^5.0.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.9.0",
