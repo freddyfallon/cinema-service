@@ -3,11 +3,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import YAML from 'yamljs';
+import path from 'path';
 import swaggerTools from 'swagger-tools';
 import routes from './routes/index';
 import connect from './databases/mongodb/connect';
 
-const swaggerDoc = YAML.load(__dirname + '/Swagger/swagger.yml');
+const swaggerDoc = YAML.load(path.join(__dirname, '/Swagger/swagger.yml'));
 const app = express();
 
 swaggerTools.initializeMiddleware(swaggerDoc, middleware => {
